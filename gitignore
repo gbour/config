@@ -1,0 +1,5 @@
+
+*.pyc
+dropin.cache
+*.swp
+*.beam
