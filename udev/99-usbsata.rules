@@ -1,0 +1,5 @@
+
+# reduce usbstorage transfer rate per command to 96K for JMicron usb/(s/p)ata adapter
+# (prevent usb driver disconnections)
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="152d", RUN+="/bin/sh -c '/bin/echo 128 > /sys/block/%k/device/max_sectors'"
+#SUBSYSTEM=="usb", DRIVERS="usb-storage", ATTRS{max_sectors}=="240", RUN+="/bin/sh -c '/bin/echo 128 > /sys/block/%k/device/max_sectors'"
