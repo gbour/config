@@ -1,20 +1,30 @@
 [user]
 	name = Guillaume Bour
 	email = guillaume@bour.cc
-[color]
-	diff = auto
-
 [core]
-	excludesfile=~/.gitignore
-
+	editors = vim
+	excludesfile = ~/.gitignore
+	editor = vim
+	pager = less
+[color]
+	ui = true
 [alias]
 	c  = commit
-	d = diff
-	p  = push
-	pl = pull --rebase
-	m  = merge
 	b  = branch -a
-	co = checkout
-	sl = stash list
-	ss = stash save
-	st = status
+	f  = fetch
+	m  = merge
+    p  = push
+    pl = pull --rebase
+    st = status
+    co = checkout
+    tree = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n\" --abbrev-commit --date=relative --branches --all
+    ss = stash save
+    sl = stash list
+    sp = stash pop
+    sa = stash apply
+    d  = diff
+    dc = diff --cached
+
+[http]
+	sslVerify = false
+	sslVerify = false
