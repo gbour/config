@@ -152,6 +152,10 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+
+-- screen I want systray to appear
+mymainscreen = 1
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
@@ -186,7 +190,7 @@ for s = 1, screen.count() do
 	analogclock,
 	meminfo,
 	cpuinfo,
-        s == 1 and mysystray or nil,
+        s == mymainscreen and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
