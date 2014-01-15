@@ -12,6 +12,8 @@ require("debian.menu")
 
 -- 
 require("custom.gages")
+--
+require("scripts/battmon.lua")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -190,6 +192,7 @@ for s = 1, screen.count() do
 	analogclock,
 	meminfo,
 	cpuinfo,
+	mybattmon,
         s == mymainscreen and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
