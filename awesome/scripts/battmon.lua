@@ -1,5 +1,9 @@
 mybattmon = widget({ type = "textbox", name = "mybattmon", align = "right" })
 
+--
+-- TODO: use inotify to update changes instead of timer
+--
+
 function battery_status ()
 	-- return "<span>Ƞ♻♼⌁↰↯↺↹↻☀♾⚠⚡⦾⦿⚀⚁⚂⚃⚄</span>"
     local fd=io.popen("acpi", "r") 
@@ -9,7 +13,7 @@ function battery_status ()
 	-- Battery 0: Charging, 64%, 00:43:59 until charged
 	-- Battery 0: Charging, 100%,  until charged
 	
-	local state, capacity, time = string.match(line, "Battery.*: (%w+), (%d+)%%, ([%d:]*) ")
+	local state, capacity = string.match(line, "Battery.*: (%w+), (%d+)%%")
 	if state == nil then
 		return "battmon:?nil"
 	end
@@ -27,16 +31,23 @@ function battery_status ()
 	end
 
 	if state ~= "Full" then
-		label = label .. string.sub(levels, (1 + 3*dots), (3 + 3*dots))
+		color = "white"
+		if dots == 0 then
+			color = "red"
+		elseif dots == 1 then
+			color = "orange"
+		end
+		
+		label = label .. "<span color=\"" .. color .. "\">" .. string.sub(levels, (1 + 3*dots), (3 + 3*dots)) .. "</span>"
 
-		if string.len(time) > 0 then
+		local time = string.match(line, "%%, ([%d:]*) ")
+		if time ~= nil and string.len(time) > 0 then
 			label = label .. " " .. time
 		end
 	end
 
 	return label
 end
-
 
 mybattmon.text = " ⁞ " .. battery_status() .. " ⁞ "
 my_battmon_timer=timer({timeout=30})
